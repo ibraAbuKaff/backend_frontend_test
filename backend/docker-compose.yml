@@ -1,0 +1,16 @@
+version: '3'
+services:
+  backend_api_service:
+    image: backend-api
+    build: .
+    networks:
+      - backend
+    ports:
+      - "3000:3000"
+    command: >
+      sh -c "npm install -qy && npm run dev"
+    volumes:
+      - ./:/usr/src/app
+networks:
+  backend:
+    driver: bridge
