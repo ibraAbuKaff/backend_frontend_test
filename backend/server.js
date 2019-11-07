@@ -1,7 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const {log, ExpressAPILogMiddleware} = require('@rama41222/node-logger');
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import {ExpressAPILogMiddleware, log} from "@rama41222/node-logger";
+import router from "./routers/user";
 
 const config = {
     name: 'backend api',
@@ -11,6 +12,10 @@ const config = {
 
 const app = express();
 const logger = log({console: true, file: false, label: config.name});
+
+
+app.use(express.json());
+app.use(router);
 
 app.use(bodyParser.json());
 app.use(cors());

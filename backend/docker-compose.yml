@@ -2,6 +2,7 @@ version: '3'
 services:
   backend_api_service:
     image: backend-api
+    container_name: "backend_api_service"
     build: .
     networks:
       - backend
@@ -11,6 +12,14 @@ services:
       sh -c "npm install -qy && npm run dev"
     volumes:
       - ./:/usr/src/app
+  mongo:
+    restart: always
+    image: mongo:latest
+    container_name: "backend_mongodb"
+    ports:
+      - 57099:27017
+    volumes:
+      - ./storage:/data/db
 networks:
   backend:
     driver: bridge
