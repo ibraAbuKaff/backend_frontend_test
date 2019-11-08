@@ -3,6 +3,9 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import {ExpressAPILogMiddleware, log} from "@rama41222/node-logger";
 import router from "./routers/user";
+import db from "./db/db"
+
+
 
 const config = {
     name: 'backend api',
@@ -22,7 +25,7 @@ app.use(cors());
 app.use(ExpressAPILogMiddleware(logger, {request: true}));
 
 app.get('/', (req, res) => {
-    res.status(200).send('hellowefewf');
+    res.status(200).send('hello this is api service');
 });
 
 app.listen(config.port, config.host, (e) => {
