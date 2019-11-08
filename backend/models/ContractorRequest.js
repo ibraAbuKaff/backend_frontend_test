@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const contractorRequestSchema = mongoose.Schema({
     name: {
@@ -44,10 +45,28 @@ const contractorRequestSchema = mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['new', 'completed'],
-        default: 'new'
+        enum: ['awaiting', 'completed'],
+        default: 'awaiting',
+        required: true,
+    },
+    user_id: {
+        type: String,
+        required: true,
     }
 });
+
+
+contractorRequestSchema.plugin(mongoosePaginate);
+
+contractorRequestSchema.statics.getRequests = async (user_id, status = 'awaiting', page = 1) => {
+    // todo: it can be moved to a middleware
+    if (page <= 0) {
+        page = 1;
+    }
+
+    return await ContractorRequest.paginate({user_id, status}, {lean: true, page});
+};
+
 
 const ContractorRequest = mongoose.model('contractor_request', contractorRequestSchema);
 

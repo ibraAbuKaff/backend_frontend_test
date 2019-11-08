@@ -50,15 +50,35 @@ router.post('/users/me/logout', Auth, async (req, res) => {
 
 
 router.post('/contractors/requests', Auth, async (req, res) => {
+    // todo: move 'contractor' as a value to constants
+    if (req.user.type_of_user !== "contractor") {
+        res.status(401).send({error: 'Not authorized to access this resource'})
+    }
+
+    let data = req.body;
+    data.user_id = req.user._id;
+    try {
+        const contractorReq = new ContractorRequest(req.body);
+        await contractorReq.save();
+        res.status(201).send(contractorReq);
+    } catch (error) {
+        res.status(400).send(error)
+    }
+
+});
+
+router.get('/contractors/requests', Auth, async (req, res) => {
     // todo: move contractor as a value to constants
     if (req.user.type_of_user !== "contractor") {
         res.status(401).send({error: 'Not authorized to access this resource'})
     }
 
+    const page = req.query.page || 1;
+    const status = req.query.status || 'awaiting';
+
     try {
-        const contractorReq = new ContractorRequest(req.body);
-        await contractorReq.save();
-        res.status(201).send(contractorReq);
+        const results = await ContractorRequest.getRequests(req.user._id, status, page);
+        res.status(201).send(results);
     } catch (error) {
         res.status(400).send(error)
     }
