@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../models/User";
+import ContractorRequest from "../models/ContractorRequest";
 import Auth from "../middleware/auth";
 
 const router = express.Router()
@@ -46,5 +47,23 @@ router.post('/users/me/logout', Auth, async (req, res) => {
         res.status(500).send(error);
     }
 });
+
+
+router.post('/contractors/requests', Auth, async (req, res) => {
+    // todo: move contractor as a value to constants
+    if (req.user.type_of_user !== "contractor") {
+        res.status(401).send({error: 'Not authorized to access this resource'})
+    }
+
+    try {
+        const contractorReq = new ContractorRequest(req.body);
+        await contractorReq.save();
+        res.status(201).send(contractorReq);
+    } catch (error) {
+        res.status(400).send(error)
+    }
+
+});
+
 
 export default router

@@ -2,10 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import {ExpressAPILogMiddleware, log} from "@rama41222/node-logger";
-import router from "./routers/user";
-import db from "./db/db"
-
-
+import router from "./routers";
+require('./db/db')
 
 const config = {
     name: 'backend api',
