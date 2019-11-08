@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon --exec babel-node server.js"
+    "dev": "env-cmd -f ./.env nodemon --exec babel-node server.js"
   },
   "author": "Ibraheem Abu Kaff",
   "license": "ISC",
@@ -14,7 +14,11 @@
     "@rama41222/node-logger": "^1.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "5.4.19",
+    "validator": "^11.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -25,6 +29,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-register": "^7.0.0-0",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "env-cmd": "^9.0.3"
   }
 }
