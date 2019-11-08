@@ -52,6 +52,10 @@ const contractorRequestSchema = mongoose.Schema({
     user_id: {
         type: String,
         required: true,
+    },
+    awarded_bidding: {
+        type: Map,
+        default: {}
     }
 });
 
@@ -74,7 +78,7 @@ contractorRequestSchema.statics.findById = async (requestId) => {
     }
 
     return contractorReq
-}
+};
 
 contractorRequestSchema.statics.getAllRequests = async (status = 'awaiting', page = 1) => {
     // todo: it can be moved to a middleware

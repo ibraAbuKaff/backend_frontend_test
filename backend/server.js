@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import {ExpressAPILogMiddleware, log} from "@rama41222/node-logger";
 import router from "./routers";
-require('./db/db')
+require('./db/db');
 
 const config = {
     name: 'backend api',
@@ -32,3 +32,6 @@ app.listen(config.port, config.host, (e) => {
     }
     logger.info(`${config.name} running on ${config.host}:${config.port}`);
 });
+
+require('./cronjob');
+
