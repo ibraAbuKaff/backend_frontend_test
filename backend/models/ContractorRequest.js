@@ -58,7 +58,7 @@ const contractorRequestSchema = mongoose.Schema({
 
 contractorRequestSchema.plugin(mongoosePaginate);
 
-contractorRequestSchema.statics.getRequests = async (user_id, status = 'awaiting', page = 1) => {
+contractorRequestSchema.statics.getRequestsByUserId = async (user_id, status = 'awaiting', page = 1) => {
     // todo: it can be moved to a middleware
     if (page <= 0) {
         page = 1;
@@ -67,6 +67,23 @@ contractorRequestSchema.statics.getRequests = async (user_id, status = 'awaiting
     return await ContractorRequest.paginate({user_id, status}, {lean: true, page});
 };
 
+contractorRequestSchema.statics.findById = async (requestId) => {
+    const contractorReq = await ContractorRequest.findOne({_id: requestId}).lean().exec()
+    if (!contractorReq) {
+        throw new Error('contractor request not found')
+    }
+
+    return contractorReq
+}
+
+contractorRequestSchema.statics.getAllRequests = async (status = 'awaiting', page = 1) => {
+    // todo: it can be moved to a middleware
+    if (page <= 0) {
+        page = 1;
+    }
+
+    return await ContractorRequest.paginate({status}, {lean: true, page});
+};
 
 const ContractorRequest = mongoose.model('contractor_request', contractorRequestSchema);
 
