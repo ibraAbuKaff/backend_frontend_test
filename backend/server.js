@@ -14,7 +14,6 @@ const config = {
 const app = express();
 const logger = log({console: true, file: false, label: config.name});
 
-
 app.use(express.json());
 app.use(router);
 
@@ -22,8 +21,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(ExpressAPILogMiddleware(logger, {request: true}));
 
-app.get('/', (req, res) => {
-    res.status(200).send('hello this is api service');
+app.get('/ping', (req, res) => {
+    res.status(200).send('pong');
 });
 
 app.listen(config.port, config.host, (e) => {
