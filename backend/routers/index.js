@@ -3,6 +3,8 @@ import User from "../models/User";
 import ContractorRequest from "../models/ContractorRequest";
 import Auth from "../middleware/auth";
 
+
+//todo : add controllers
 const router = express.Router()
 router.post('/users', async (req, res) => {
     try {
@@ -24,7 +26,6 @@ router.post('/users/login', async (req, res) => {
         }
         const token = await user.generateAuthToken()
 
-        console.log(token)
         res.send({user, token})
     } catch (error) {
         res.status(400).send(error)
@@ -78,7 +79,7 @@ router.get('/contractors/requests', Auth, async (req, res) => {
 
     try {
         const results = await ContractorRequest.getRequests(req.user._id, status, page);
-        res.status(201).send(results);
+        res.send(results);
     } catch (error) {
         res.status(400).send(error)
     }
