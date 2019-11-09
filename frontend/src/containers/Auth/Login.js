@@ -3,12 +3,13 @@ import "./Login.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
-import TextElement from "../components/TextElement";
-import ButtonElement from "../components/ButtonElement";
+import TextElement from "../../components/TextElement";
+import ButtonElement from "../../components/ButtonElement";
 import Alert from "react-bootstrap/Alert";
 import {connect} from "react-redux";
-import * as UserActionCreator from "../actions/User";
+import * as UserActionCreator from "../../actions/User";
 import {bindActionCreators} from "redux";
+import {redirectToUserPage} from "../../helpers";
 
 class Login extends Component {
 
@@ -34,6 +35,15 @@ class Login extends Component {
         eve.preventDefault();
         this.props.actions.userActionCreator.doLogin(this.props.userState.email, this.props.userState.password)
     };
+
+
+    componentDidUpdate() {
+        const typeOfUser = this.props.userState.user['type_of_user'] || "";
+        if (!typeOfUser) {
+            return;
+        }
+        redirectToUserPage(typeOfUser)
+    }
 
     render() {
         return (

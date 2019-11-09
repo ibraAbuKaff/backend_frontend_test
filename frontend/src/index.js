@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Login from "./containers/Login";
-import Signup from "./containers/Signup";
+import Login from "./containers/Auth/Login";
+import Signup from "./containers/Auth/Signup";
 import Supplier from "./containers/Supplier";
 import Contractor from "./containers/Contractor";
 import * as serviceWorker from "./serviceWorker";

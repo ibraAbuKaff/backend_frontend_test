@@ -3,14 +3,15 @@ import "./Signup.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
-import TextElement from "../components/TextElement";
-import CheckboxElement from "../components/CheckboxElement";
-import ButtonElement from "../components/ButtonElement";
+import TextElement from "../../components/TextElement";
+import CheckboxElement from "../../components/CheckboxElement";
+import ButtonElement from "../../components/ButtonElement";
 import Alert from "react-bootstrap/Alert";
 import {connect} from "react-redux";
-import * as UserActionCreator from "../actions/User";
+import * as UserActionCreator from "../../actions/User";
 import {bindActionCreators} from "redux";
-import createHistory from "history/createBrowserHistory";
+import {redirectToUserPage} from "../../helpers";
+
 
 class Signup extends Component {
 
@@ -51,31 +52,11 @@ class Signup extends Component {
     };
 
     componentDidUpdate() {
-        const history = createHistory({
-            //forceRefresh: true
-            hashType: 'hashbang'
-        });
-
-
         const typeOfUser = this.props.userState.user['type_of_user'] || "";
         if (!typeOfUser) {
             return;
         }
-
-        if (typeOfUser === 'supplier') {
-            history.push({
-                pathname: '/supplier',
-            });
-            window.location.reload()
-        }
-
-        if (typeOfUser === 'contractor') {
-            history.push({
-                pathname: '/contractor',
-            });
-            window.location.reload()
-        }
-
+        redirectToUserPage(typeOfUser)
     }
 
     render() {
