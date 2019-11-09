@@ -51,8 +51,12 @@ class Signup extends Component {
 
     };
 
+    componentDidMount() {
+        redirectToUserPage(localStorage.getItem('userType'));
+    }
+
     componentDidUpdate() {
-        const typeOfUser = this.props.userState.user['type_of_user'] || "";
+        const typeOfUser = localStorage.getItem('userType');
         if (!typeOfUser) {
             return;
         }

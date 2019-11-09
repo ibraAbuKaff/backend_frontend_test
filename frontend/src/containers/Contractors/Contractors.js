@@ -6,30 +6,38 @@ import Container from "react-bootstrap/Container";
 import {connect} from "react-redux";
 import * as ContractorRequestActionCreator from "../../actions/ContractorRequest";
 import {bindActionCreators} from "redux";
+import ButtonElement from "../../components/ButtonElement";
+import {doLogout} from "../../helpers";
 
 class Contractors extends Component {
 
     constructor(props) {
         super(props);
+        this.onLogout = this.onLogout.bind(this);
     }
+
+    onLogout = (eve) => {
+        eve.preventDefault();
+        eve.stopPropagation();
+        doLogout();
+    };
 
     render() {
         return (
-
             <Container>
                 <Row>
                     <Col>
-                        <h2>Welcome {localStorage.getItem('email')}, You are a contractor</h2>
+                        <h2>Welcome Contractor {localStorage.getItem('email')}</h2>
+                        <h4><ButtonElement onClick={this.onLogout} id="logout" type="submit" label="Logout"/></h4>
                     </Col>
-
-                </Row>
-                <Row>
                     <Col>
                         <Request />
                     </Col>
                 </Row>
-            </Container>
+                <Row>
 
+                </Row>
+            </Container>
         );
     }
 }

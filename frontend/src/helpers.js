@@ -21,3 +21,20 @@ export const redirectToUserPage = (userType) => {
         window.location.reload()
     }
 };
+
+export const doLogout = () => {
+    const history = createHistory({
+        //forceRefresh: true
+        hashType: 'hashbang'
+    });
+
+    history.push({
+        pathname: '/',
+    });
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    localStorage.removeItem('userType');
+    window.location.reload()
+
+}

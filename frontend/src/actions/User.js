@@ -60,7 +60,8 @@ export function isLoggingIn() {
 
 export function isLoggedIn(user) {
 
-    localStorage.setItem('email', user['email'])
+    localStorage.setItem('email', user['email']);
+    localStorage.setItem('userType', user['type_of_user']);
     return {
         type: 'LOGGED_IN',
         user,
