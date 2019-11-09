@@ -11,7 +11,7 @@ export function doLogin(email, password) {
             const token = __.get(response.data, 'token', '')
 
             if (__.isEmpty(token)) {
-                dispatch(got_error("sorry can not login"));
+                throw new Error()
             }
 
             const user = __.get(response.data, 'user', {})
@@ -25,7 +25,6 @@ export function doLogin(email, password) {
     };
 }
 
-
 export function doSignup(email, password, userType) {
     return function (dispatch) {
 
@@ -34,16 +33,16 @@ export function doSignup(email, password, userType) {
         let signupPromise = signup(email, password, userType);
         signupPromise.then((response) => {
             const token = __.get(response.data, 'token', '')
-            console.log(response.data)
-            console.log(token)
             if (__.isEmpty(token)) {
-                dispatch(got_error("sorry can not signup"));
+                throw new Error()
             }
 
             const user = __.get(response.data, 'user', {})
+            console.log(user)
             dispatch(isLoggedIn(user));
             dispatch(got_error(''));
             dispatch(setToken(token));
+
 
         }).catch((err) => {
             dispatch(got_error("sorry can not signup"));
@@ -60,6 +59,8 @@ export function isLoggingIn() {
 
 
 export function isLoggedIn(user) {
+
+    localStorage.setItem('email', user['email'])
     return {
         type: 'LOGGED_IN',
         user,
@@ -95,8 +96,7 @@ export function got_error(error) {
 }
 
 export function setToken(token) {
-
-
+    localStorage.setItem("token", token)
     return {
         type: 'SET_TOKEN',
         token,

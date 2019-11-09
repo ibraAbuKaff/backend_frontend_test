@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 //import "./Login.css";
 
-class Supplier extends Component {
+class Suppliers extends Component {
 
     render() {
         return (
@@ -14,4 +14,4 @@ class Supplier extends Component {
 }
 
 
-export default Supplier;
+export default Suppliers;

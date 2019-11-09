@@ -15,7 +15,6 @@ export async function login(email, password) {
         "password": password
     };
 
-    //return await axios.get(`${config.API_BASE_URL}ping`, {}, {headers: {}});
     return await axios.post(`${config.API_BASE_URL}${endpoints.LOGIN}`, body);
 }
 
@@ -27,5 +26,6 @@ export async function signup(email, password, type_of_user) {
         password: password,
         type_of_user: type_of_user
     };
+    
     return await axios.post(`${config.API_BASE_URL}${endpoints.REGISTER}`, body);
 }
