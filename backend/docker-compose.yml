@@ -5,7 +5,7 @@ services:
     container_name: "backend_api_service"
     build: .
     ports:
-      - "3000:3000"
+      - "4500:3000"
     command: >
       sh -c "npm install -qy && npm run dev"
     volumes:
