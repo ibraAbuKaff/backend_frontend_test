@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import cors from "cors";
+//import cors from "cors";
 import {ExpressAPILogMiddleware, log} from "@rama41222/node-logger";
 import router from "./routers";
 require('./db/db');
@@ -16,18 +16,16 @@ const logger = log({console: true, file: false, label: config.name});
 
 
 app.use(bodyParser.json());
-app.use(cors());
+//app.use(cors());
 
 app.use(express.json());
-app.use(router);
-app.use(ExpressAPILogMiddleware(logger, {request: true}));
-
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
+app.use(router);
+app.use(ExpressAPILogMiddleware(logger, {request: true}));
 
 
 app.get('/ping', (req, res) => {

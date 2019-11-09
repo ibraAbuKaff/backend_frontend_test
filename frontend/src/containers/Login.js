@@ -3,9 +3,11 @@ import "./SignupLogin.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
 import TextElement from "../components/TextElement";
 import CheckboxElement from "../components/CheckboxElement";
 import ButtonElement from "../components/ButtonElement";
+import Alert from "react-bootstrap/Alert";
 import {connect} from "react-redux";
 import * as UserActionCreator from "../actions/User";
 import {bindActionCreators} from "redux";
@@ -27,7 +29,7 @@ class SignupLogin extends Component {
 
     onPasswordChange = (eve) => {
         const password = eve.target.value || "";
-        this.props.actions.userActionCreator.setEmail(password)
+        this.props.actions.userActionCreator.setPassword(password)
     };
 
     onRegister = (eve) => {
@@ -42,6 +44,13 @@ class SignupLogin extends Component {
     };
 
     render() {
+
+        if (this.props.userState.error !== "") {
+            return (<Alert variant="danger">
+                Can not login, please check your Credintials
+            </Alert>)
+        }
+
         return (
             <div className="App">
                 <Container>
@@ -53,7 +62,7 @@ class SignupLogin extends Component {
                         <CheckboxElement id="radioSupplier" name="typeOfUser" label="Supplier" type="radio"/>
 
                         <Form.Group as={Row}>
-
+                            <Col>Not needed for the login</Col>
                             <ButtonElement onClick={this.onRegister} id="register" type="submit" label="Register"/>
                             <ButtonElement onClick={this.onLogin} id="login" type="submit" label="Login"/>
 
