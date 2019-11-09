@@ -9,7 +9,7 @@ import * as ContractorRequestActionCreator from "../../actions/ContractorRequest
 import {bindActionCreators} from "redux";
 import Alert from "react-bootstrap/Alert";
 
-class Request extends Component {
+class PostRequests extends Component {
 
     constructor(props) {
         super(props);
@@ -118,4 +118,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Request);
+export default connect(mapStateToProps, mapDispatchToProps)(PostRequests);

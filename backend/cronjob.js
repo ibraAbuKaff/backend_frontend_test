@@ -7,7 +7,7 @@ const job = new CronJob('* * * * * *', async function () {
     // get expired requests
     const contractRequests = ContractorRequest.find({
         status: "awaiting",
-        endAt: {'$lt': Date.now().toFixed()}
+        endAt: {'$lt': Date.now()}
     }).cursor();
 
     let document;
@@ -20,7 +20,7 @@ const job = new CronJob('* * * * * *', async function () {
 async function updateContractorRequestWithBidding(requestId) {
     const awardedBidding = await SupplierBiddings.find({request_id: requestId}).sort({'price': 'descending'}).limit(1);
     if (awardedBidding.length === 0) {
-        return;
+        awardedBidding[0] = {};
     }
 
     let doc = await ContractorRequest.findOneAndUpdate({_id: requestId}, {awarded_bidding: awardedBidding[0], status: "completed"}, {

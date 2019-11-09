@@ -1,18 +1,22 @@
 import React, {Component} from "react";
-import Request from "./Request";
+import PostRequests from "./PostRequest";
+import ListRequests from "./ListRequests";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import {connect} from "react-redux";
-import * as ContractorRequestActionCreator from "../../actions/ContractorRequest";
-import {bindActionCreators} from "redux";
 import ButtonElement from "../../components/ButtonElement";
 import {doLogout} from "../../helpers";
+import {getMyRequests} from "../../services/Contractor";
+import __ from "lodash";
 
 class Contractors extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            awaitingRequests: [],
+            completedRequests: [],
+        };
         this.onLogout = this.onLogout.bind(this);
     }
 
@@ -20,6 +24,27 @@ class Contractors extends Component {
         eve.preventDefault();
         eve.stopPropagation();
         doLogout();
+    };
+
+    async componentDidMount() {
+        this.getAwaitingRequests();
+        this.getCompletedRequests();
+    }
+
+    getAwaitingRequests = async () => {
+        const that = this;
+        getMyRequests(1, 'awaiting').then((results) => {
+            const docs = __.get(results.data, 'docs');
+            that.setState({awaitingRequests: docs});
+        })
+    };
+
+    getCompletedRequests = async () => {
+        const that = this;
+        getMyRequests(1, 'completed').then((results) => {
+            const docs = __.get(results.data, 'docs');
+            that.setState({completedRequests: docs});
+        })
     };
 
     render() {
@@ -31,31 +56,16 @@ class Contractors extends Component {
                         <h4><ButtonElement onClick={this.onLogout} id="logout" type="submit" label="Logout"/></h4>
                     </Col>
                     <Col>
-                        <Request />
+                        <PostRequests />
                     </Col>
                 </Row>
-                <Row>
-
-                </Row>
+                <div>
+                    <ListRequests awaitingDocs={this.state.awaitingRequests} completedDocs={this.state.completedRequests}/>
+                </div>
             </Container>
         );
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        contractorRequestState: state.contractorRequestState,
-        userState: state.userState,
-    };
-}
 
-function mapDispatchToProps(dispatch) {
-
-    return {
-        actions: {
-            contractorRequestActionCreator: bindActionCreators(ContractorRequestActionCreator, dispatch),
-        }
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Contractors);
+export default Contractors;
