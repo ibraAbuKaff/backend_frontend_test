@@ -11,7 +11,7 @@ class TextElement extends Component {
                     {this.props.label}
                 </Form.Label>
                 <Col sm={10}>
-                    <Form.Control id={this.props.id} type={this.props.type} placeholder={this.props.placeholder}/>
+                    <Form.Control onChange = {this.props.onChange} id={this.props.id} type={this.props.type} placeholder={this.props.placeholder}/>
                 </Col>
             </Form.Group>
         )
