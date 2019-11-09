@@ -14,12 +14,21 @@ const config = {
 const app = express();
 const logger = log({console: true, file: false, label: config.name});
 
-app.use(express.json());
-app.use(router);
 
 app.use(bodyParser.json());
 app.use(cors());
+
+app.use(express.json());
+app.use(router);
 app.use(ExpressAPILogMiddleware(logger, {request: true}));
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+
 
 app.get('/ping', (req, res) => {
     res.status(200).send('pong');
