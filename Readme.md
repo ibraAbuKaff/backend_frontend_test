@@ -20,8 +20,11 @@ docker-compose up --build
 
 Db schema:
 I used MongoDb, with 3 collections:
+
 1- contractor_requests
+
 2- supplier_bidding
+
 3-users (has both contractor and supplier)
 
 https://imgur.com/uY9bqiP
@@ -30,7 +33,7 @@ https://imgur.com/x4GYGCt
 
 https://imgur.com/GfAQB57
 
-I used mongoose as an ODM
+I used mongoose as an ODM in the ndoe js backend
 
 
 ###Requests:
@@ -67,11 +70,16 @@ npm install
 yarn start or npm start
 ``
 
-Login/register is done
-The Contractor part is done
-Supplier Part (still not)
+What i achieved:
+
+Login/register is done (backend part also doen)
+
+The Contractor part is done (backend part also done)
+
+Supplier Part (still not done)  (but the backend part for it is done...)
 
 
-I used ReactJs and Rect Redux and redux thunk for the state management...
+
+I used Redux and redux thunk for the state management...
  
  
