@@ -41,6 +41,7 @@ Please refer to the postman json collection: https://api.myjson.com/bins/19eatg
 
 
 The Api Journey:
+
 1- register/login to get a token (it can be contractror token or supplier token)
 
 2- send this token in the contractor/supplier requests in the headers to authorize them
@@ -52,8 +53,8 @@ The Api Journey:
 ===============
 #####
 
-for processing the expired requests i used cronjob (file:cronjob.js) which is running every second to check on the requests...
-if the request got expired , i search for the lowest price for that request in the collection `supplier_bidding`, once i find it i attach that document to the
+for processing the expired requests i used cronjob (file: backend/cronjob.js) which is running every second to check on the requests...
+if the request got expired , i search for the lowest price for that request in the collection `supplier_bidding`, once i find it i attach that document to that
  request in `contractor_requests`
 
 
