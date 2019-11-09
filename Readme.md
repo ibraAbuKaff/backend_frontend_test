@@ -1,11 +1,22 @@
 ###Backend:
 
 How to make it up and running: <br />
+1- `cd backend`
 
-``
-cd backend 
+2- create .env in the backend directory
+
+3- copy the following to it:
+```dotenv
+ MONGODB_URL=mongodb://mongo_service:27017/tenderd
+ JWT_KEY=WinterIsComingGOT2019
+ REQUEST_EXPIRATION_IN_MINIUTES=4
+
+```
+4-
+``  
 docker-compose up --build 
 `` 
+
 
 Db schema:
 I used MongoDb, with 3 collections:
@@ -59,6 +70,6 @@ The Contractor part is done
 Supplier Part (still not)
 
 
-I used ReactJs and Reqact Redux and reduz thunk for the state management...
+I used ReactJs and Rect Redux and redux thunk for the state management...
  
  
