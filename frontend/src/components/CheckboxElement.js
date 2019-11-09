@@ -14,6 +14,8 @@ class CheckboxElement extends Component {
                         label={this.props.label}
                         name={this.props.name}
                         id={this.props.id}
+                        onChange={this.props.onChange}
+                        value={this.props.value}
                     />
                 </Col>
             </Form.Group>

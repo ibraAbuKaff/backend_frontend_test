@@ -1,7 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./containers/SignupLogin";
+import Login from "./containers/Login";
+import Signup from "./containers/Signup";
+import Supplier from "./containers/Supplier";
+import Contractor from "./containers/Contractor";
 import * as serviceWorker from "./serviceWorker";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
@@ -26,7 +29,10 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={historyOfApp}>
             <Switch>
-                <Route exact path="/" component={App}/>
+                <Route exact path="/" component={Signup}/>
+                <Route exact path="/login" component={Login}/>
+                <Route exact path="/supplier" component={Supplier}/>
+                <Route exact path="/contractor" component={Contractor}/>
                 {/*<Route exact path="/:title-:id" component={}/>*/}
                 {/*<Route exact path="/bookmarks" component={}/>*/}
                 {/*<Route exact path="/board/:id?" component={}/>*/}

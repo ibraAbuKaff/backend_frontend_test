@@ -8,22 +8,24 @@ axios.defaults.headers = {
     'Accept': 'application/json'
 };
 
-
 export async function login(email, password) {
 
     const body = {
-        email: email,
-        password: password
+        "email": email,
+        "password": password
     };
-    return await axios.post(`${config.API_BASE_URL}${endpoints.LOGIN}`, body, {headers: {}});
+
+    //return await axios.get(`${config.API_BASE_URL}ping`, {}, {headers: {}});
+    return await axios.post(`${config.API_BASE_URL}${endpoints.LOGIN}`, body);
 }
 
 
-export async function register(email, password) {
+export async function signup(email, password, type_of_user) {
 
     const body = {
         email: email,
-        password: password
+        password: password,
+        type_of_user: type_of_user
     };
-    return await axios.post(`${config.API_BASE_URL}${endpoints.REGISTER}`, body, {headers: {}});
+    return await axios.post(`${config.API_BASE_URL}${endpoints.REGISTER}`, body);
 }
