@@ -4,13 +4,13 @@
     {
       "name": "backend",
       "host": {
-        "sourcePath": "./backend"
+        "sourcePath": "/var/app/current/backend"
       }
     },
     {
       "name": "mongo-storage",
       "host": {
-        "sourcePath": "./backend/storage"
+        "sourcePath": "/var/app/current/backend/storage"
       }
     }
   ],
