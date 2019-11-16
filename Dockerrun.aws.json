@@ -1,0 +1,60 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "backend",
+      "host": {
+        "sourcePath": "./backend"
+      }
+    },
+    {
+      "name": "mongo-storage",
+      "host": {
+        "sourcePath": "./backend/storage"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "backend-api",
+      "image": "341236723923.dkr.ecr.us-east-1.amazonaws.com/backend_api_services_node_js:latest",
+      "essential": true,
+      "memory": 256,
+      "command": [
+        "sh",
+        "-c",
+        "npm install -qy && npm run dev"
+      ],
+      "portMappings": [
+        {
+          "hostPort": 4500,
+          "containerPort": 3000
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "backend",
+          "containerPath": "/usr/src/app"
+        }
+      ]
+    },
+    {
+      "name": "webapp-mongo_service",
+      "image": "mvertes/alpine-mongo:latest",
+      "essential": true,
+      "memory": 256,
+      "portMappings": [
+        {
+          "hostPort": 57099,
+          "containerPort": 27017
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "mongo-storage",
+          "containerPath": "/data/db"
+        }
+      ]
+    }
+  ]
+}
